@@ -44,16 +44,18 @@ export const App = ({codigoPais}) => {
 
 	const [videoAnterior, videoAComparar, videoSiguiente] = videosEnJuego;
 
+	const isBrowser = typeof window !== "undefined";
+
 	const estilosAnimacionScroll = {
 		x: animacionScroll.x.to((x) => {
-			if (window && window.innerWidth > 800) {
+			if (isBrowser && window.innerWidth > 800) {
 				return `-${x}vw`;
 			}
 			return `0vw`;
 		}),
 
 		y: animacionScroll.y.to((y) => {
-			if (window && window.innerWidth <= 800) {
+			if (isBrowser && window.innerWidth <= 800) {
 				return `-${y}vh`;
 			}
 			return `0vh`;
