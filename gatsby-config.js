@@ -5,7 +5,7 @@ const path = require("path");
 
 module.exports = {
 	siteMetadata: {
-		siteUrl: "https://www.yourdomain.tld",
+		siteUrl: "https://peaceful-austin-24fb09.netlify.app/",
 		title: "Higher or Lower YT",
 	},
 	plugins: [
@@ -16,7 +16,13 @@ module.exports = {
 		{
 			resolve: "gatsby-plugin-manifest",
 			options: {
-				icon: "src/assets/images/icon.png",
+				icon: "src/assets/images/higher-or-lower-yt-logo.png",
+				name: `Higher or Lower YouTube`,
+				short_name: `Higher Lower YT`,
+				start_url: `/`,
+				background_color: `#252422`,
+				theme_color: `#fff`,
+				display: `standalone`,
 			},
 		},
 		{

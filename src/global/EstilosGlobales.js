@@ -1,7 +1,7 @@
 import {createGlobalStyle} from "styled-components";
-import "../assets/fonts/fonts.css";
+import "@assets/fonts/fonts.css";
 
-const EstilosGlobales = createGlobalStyle`
+export const EstilosGlobales = createGlobalStyle`
     *{
         margin:0px;
         padding: 0px;
@@ -18,5 +18,3 @@ const EstilosGlobales = createGlobalStyle`
         background-color: #252422;
     }
 `;
-
-export default EstilosGlobales;

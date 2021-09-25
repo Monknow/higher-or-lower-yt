@@ -1,10 +1,12 @@
 import * as React from "react";
-import EstilosGlobales from "./src/global/EstilosGlobales";
+import {CartasDeRedesSociales} from "@global/CartasDeRedesSociales";
+import {EstilosGlobales} from "@global/EstilosGlobales";
 
-export const wrapPageElement = ({element}) => {
+export const wrapPageElement = ({props, element}) => {
 	return (
 		<div>
 			<EstilosGlobales />
+			<CartasDeRedesSociales {...props} />
 			{element}
 		</div>
 	);
