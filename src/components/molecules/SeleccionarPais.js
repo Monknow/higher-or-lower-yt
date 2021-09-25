@@ -1,10 +1,8 @@
 import * as React from "react";
 import {useState} from "react";
 import styled from "styled-components";
-import {OpcionSelect} from "@components/atoms/opcionSelect";
 import {paisesDeNombreACodigo} from "@data/paisesDeNombreACodigo";
 import {useEffect} from "react/cjs/react.development";
-import {useQuery} from "react-query";
 
 const SeleccionarPaisEstilizado = styled.form`
 	grid-area: header;
