@@ -3,10 +3,12 @@ import {CartasDeRedesSociales} from "@global/CartasDeRedesSociales";
 import {EstilosGlobales} from "@global/EstilosGlobales";
 
 export const wrapPageElement = ({props, element}) => {
+	const {location} = props;
+
 	return (
 		<div>
 			<EstilosGlobales />
-			<CartasDeRedesSociales {...props} />
+			<CartasDeRedesSociales location={location} />
 			{element}
 		</div>
 	);

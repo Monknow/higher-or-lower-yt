@@ -6,7 +6,7 @@ import {getRandomColor} from "@functions/getRandomColor";
 import {elegirResolucionDeImagen} from "@functions/elegirResolucionDeImagen";
 import {HigherOrLowerBotones} from "@components/molecules/HigherOrLowerBotones";
 import {Titulo} from "@components/atoms/Titulo";
-import {HeaderVideo} from "@components/atoms/HeaderVideo";
+import {HeaderVideo} from "@components/molecules/HeaderVideo";
 import {Visitas} from "@components/molecules/Visitas";
 import {animated} from "react-spring";
 
@@ -66,15 +66,15 @@ const TextoComparacion = styled(Titulo)`
 
 export const VideoEnJuego = ({
 	datos,
-	esVideoParaComparar,
+	esVideoAnterior,
+	esVideoActual,
+	esSiguienteVideo,
 	manejarRespuesta,
 	tituloVideoAnterior,
 	style,
 	animacionInterfaz,
-	fueraDePantalla,
 	animacionVisitas,
 }) => {
-	const [mostrarVisitas, setMostrarVisitas] = useState(!esVideoParaComparar);
 	const [colorFondo, setColorFondo] = useState("000");
 
 	const thumbnails = datos.snippet.thumbnails;
@@ -85,19 +85,15 @@ export const VideoEnJuego = ({
 
 	return (
 		<VideoEnJuegoEstilizado style={style} $colorFondo={colorFondo} imagen={elegirResolucionDeImagen(thumbnails)}>
-			{!fueraDePantalla && (
+			{!esSiguienteVideo && (
 				<Fragment>
-					<HeaderVideo titulo={datos.snippet.title} />
+					<HeaderVideo titulo={datos.snippet.title} style={animacionInterfaz} />
 					<Visitas animacionVisitas={animacionVisitas} visitas={datos.statistics.viewCount} />
-					{esVideoParaComparar && (
-						<HigherOrLowerBotones
-							style={animacionInterfaz}
-							manejarRespuesta={manejarRespuesta}
-							setMostrarVisitas={setMostrarVisitas.toString()}
-						/>
+					{esVideoActual && (
+						<HigherOrLowerBotones style={animacionInterfaz} manejarRespuesta={manejarRespuesta} />
 					)}
-					<TextoComparacion align="center" style={animacionInterfaz} subtitulo $abajo={esVideoParaComparar}>
-						{esVideoParaComparar ? <span>views than {tituloVideoAnterior}</span> : <span>views</span>}
+					<TextoComparacion align="center" style={animacionInterfaz} subtitulo $abajo={esVideoActual}>
+						{esVideoAnterior ? <span>views than {tituloVideoAnterior}</span> : <span>views</span>}
 					</TextoComparacion>
 				</Fragment>
 			)}

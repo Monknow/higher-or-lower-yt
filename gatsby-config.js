@@ -32,6 +32,7 @@ module.exports = {
 					"@animations": path.resolve(__dirname, "src/animations"),
 					"@assets": path.resolve(__dirname, "src/assets"),
 					"@components": path.resolve(__dirname, "src/components"),
+					"@context": path.resolve(__dirname, "src/context"),
 					"@data": path.resolve(__dirname, "src/data"),
 					"@functions": path.resolve(__dirname, "src/functions"),
 					"@global": path.resolve(__dirname, "src/global"),

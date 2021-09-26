@@ -62,11 +62,9 @@ const AtribucionGif = styled(Titulo)`
 export const FondoGif = ({children, puntos, queryGif, queryKey, gifFile}) => {
 	const [colorFondo, setColorFondo] = useState("000");
 	const [gifUrl, setGifUrl] = useState(null);
+	const [queryOffset, setQueryOffset] = useState(0);
 
 	const tipoDeGif = queryGif ? queryGif : obtenerGifEnBaseAPuntos(tiposDeGif, puntos);
-
-	const decimalRandom = Math.random();
-	const queryOffset = Math.floor(decimalRandom * 10);
 
 	const {isLoading, data, refetch} = useQuery(
 		queryKey,
@@ -75,22 +73,28 @@ export const FondoGif = ({children, puntos, queryGif, queryKey, gifFile}) => {
 				`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GATSBY_API_GIPHY_KEY}&q=${tipoDeGif}&limit=1&offset=${queryOffset}`
 			).then((res) => res.json());
 		},
-		{enabled: false}
+		{cacheTime: 0, enabled: false}
 	);
+
+	useEffect(() => {
+		const decimalRandom = Math.random();
+
+		setQueryOffset(Math.floor(decimalRandom * 10));
+	}, []);
 
 	useEffect(() => {
 		setColorFondo(getRandomColor());
 		if (!gifFile) {
 			refetch();
 		}
-	}, []);
+	}, [gifFile, refetch]);
 
 	useEffect(() => {
 		const gifQueryUrl = !isLoading && data ? data.data[0].images.original.url : undefined;
 		//La respuesta de giphy tiene una propieda también llamada data :/. De ahi data.data
 
 		setGifUrl(gifFile ? gifFile : gifQueryUrl);
-	}, [data, isLoading]);
+	}, [data, isLoading, gifFile]);
 
 	return (
 		<FondoGifEstilizado colorFondo={colorFondo} isLoading={isLoading} imagenUrl={gifUrl}>

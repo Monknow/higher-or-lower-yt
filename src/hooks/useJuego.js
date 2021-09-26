@@ -14,9 +14,9 @@ export const useJuego = (codigoPais) => {
 	const [videos, setVideos] = useState([]);
 
 	const videosEnJuego = videos.slice(puntos, puntos + 3);
-	const [videoAnterior, videoAComparar] = videosEnJuego;
+	const [videoAnterior, videoActual] = videosEnJuego;
 
-	const {isLoading, isError, status, data, isPreviousData, refetch} = useQuery(
+	const {isLoading, isError, data, isPreviousData, refetch} = useQuery(
 		"paginaPrincipal",
 		async () => {
 			return await fetch(
@@ -33,7 +33,7 @@ export const useJuego = (codigoPais) => {
 
 	useEffect(() => {
 		refetch();
-	}, []);
+	}, [refetch]);
 
 	useEffect(() => {
 		//Añadir data de query a videos y preparar el token para la siguiente página
@@ -42,7 +42,7 @@ export const useJuego = (codigoPais) => {
 			setVideos([...videos, ...videosNuevoBarajados]);
 			setNextPageToken(data.nextPageToken);
 		}
-	}, [isLoading, data]);
+	}, [isLoading, data, isError, isPreviousData]);
 
 	useEffect(() => {
 		//Como la query trae 25 videos, traer más videos cada 20 puntos
@@ -53,7 +53,7 @@ export const useJuego = (codigoPais) => {
 
 	const manejarError = () => {
 		apiAnimacionVisitas.start({
-			to: {number: parseInt(videoAComparar.statistics.viewCount)},
+			to: {number: parseInt(videoActual.statistics.viewCount)},
 			delay: 300,
 			onRest: () => {
 				apiAnimacionEstado.start({
@@ -74,7 +74,8 @@ export const useJuego = (codigoPais) => {
 
 	const manejarAcierto = () => {
 		apiAnimacionVisitas.start({
-			to: {number: parseInt(videoAComparar.statistics.viewCount)},
+			to: {number: parseInt(videoActual.statistics.viewCount)},
+
 			onRest: () => {
 				apiAnimacionEstado.start({
 					to: async (next) => {
@@ -85,11 +86,9 @@ export const useJuego = (codigoPais) => {
 					onRest: () => {
 						apiAnimacionEstado.start({
 							to: {opacity: 0},
-							delay: 500,
 						});
 						apiAnimacionInterfaz.start({
 							to: {opacity: 0},
-							delay: 500,
 							onRest: () => {
 								apiAnimacionScroll.start({
 									from: {x: 0, y: 0},
@@ -114,7 +113,7 @@ export const useJuego = (codigoPais) => {
 	// Sé que es callback hell, pero no sé como encadenar animaciones utilizando la api imperativa
 
 	const manejarRespuesta = (respuesta) => {
-		const esMayor = parseInt(videoAComparar.statistics.viewCount) > parseInt(videoAnterior.statistics.viewCount);
+		const esMayor = parseInt(videoActual.statistics.viewCount) > parseInt(videoAnterior.statistics.viewCount);
 
 		switch (true) {
 			case (respuesta === "higher" && esMayor) || (respuesta === "lower" && !esMayor):

@@ -71,6 +71,7 @@ export const App = ({codigoPais}) => {
 				<VideoEnJuego
 					style={estilosAnimacionScroll}
 					animacionInterfaz={animacionInterfaz}
+					esVideoAnterior
 					datos={videoAnterior}
 					manejarRespuesta={manejarRespuesta}></VideoEnJuego>
 				<EstadoResultado estado={estadoJuego} style={animacionEstado} />
@@ -79,12 +80,13 @@ export const App = ({codigoPais}) => {
 					animacionInterfaz={animacionInterfaz}
 					datos={videoAComparar}
 					animacionVisitas={animacionVisitas}
-					esVideoParaComparar
+					esVideoActual
 					tituloVideoAnterior={videoAnterior.snippet.title}
 					manejarRespuesta={manejarRespuesta}></VideoEnJuego>
 				<VideoEnJuego
 					style={estilosAnimacionScroll}
-					fueraDePantalla
+					animacionInterfaz={animacionInterfaz}
+					esSiguienteVideo
 					datos={videoSiguiente}
 					manejarRespuesta={manejarRespuesta}></VideoEnJuego>
 			</VideosEnJuego>

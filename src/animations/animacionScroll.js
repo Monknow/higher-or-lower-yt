@@ -5,7 +5,7 @@ export const useAnimacionScroll = () => {
 		from: {x: 0, y: 0},
 		x: 0,
 		y: 0,
-		config: {duration: 500},
+		config: {mass: 2, tension: 100, friction: 20, clamp: true},
 	}));
 
 	return {animacionScroll, apiAnimacionScroll};
