@@ -18,7 +18,7 @@ const EstilosGlobales = createGlobalStyle`
 `;
 
 const DisclaimerEstilizado = styled.p`
-	grid-area: footer;
+	grid-area: top;
 
 	text-align: center;
 	font-size: 1.3rem;
@@ -48,6 +48,7 @@ const queryClient = new QueryClient();
 
 const IndexPage = ({location}) => {
 	const [codigoPais, setCodigoPais] = useState(location?.state?.codigoPais ?? "US");
+	// Recuperar codigoDePais de anterior partida
 
 	return (
 		<QueryClientProvider client={queryClient}>

@@ -18,6 +18,7 @@ const SeleccionarPaisEstilizado = styled.form`
 const EtiquetaEstilizada = styled.label`
 	text-align: center;
 `;
+
 const InputSelect = styled.select`
 	box-sizing: content-box;
 	border: 2px solid #fff;
@@ -25,8 +26,8 @@ const InputSelect = styled.select`
 	padding: 3px;
 
 	height: clamp(20px, 8vw, 30px);
-	width: clamp(100px, 90vw, 300px);
-	font-size: 1.2rem;
+	width: min(60vw, 300px);
+	font-size: clamp(14px, 5vw, 16px);
 `;
 
 const paises = Array.from(paisesDeNombreACodigo.keys());

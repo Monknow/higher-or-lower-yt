@@ -16,15 +16,15 @@ export const useJuego = (codigoPais) => {
 	const videosEnJuego = videos.slice(puntos, puntos + 3);
 	const [videoAnterior, videoAComparar] = videosEnJuego;
 
-	const {isLoading, isError, data, isPreviousData, refetch} = useQuery(
+	const {isLoading, isError, status, data, isPreviousData, refetch} = useQuery(
 		"paginaPrincipal",
 		async () => {
 			return await fetch(
 				`https://youtube.googleapis.com/youtube/v3/videos?chart=mostPopular&pageToken=${nextPageToken}&regionCode=${codigoPais}&maxResults=25&part=snippet,contentDetails,statistics&key=${process.env.GATSBY_API_YOUTUBE_KEY}`
 			).then((res) => res.json());
 		},
-		{refetchOnWindowFocus: false, keepPreviousData: true, enabled: false}
-	);
+		{cacheTime: 0, keepPreviousData: true, enabled: false}
+	); //Se coloca keepPreviousData a true para que isLoading no cambie
 
 	const {animacionScroll, apiAnimacionScroll} = useAnimacionScroll();
 	const {animacionInterfaz, apiAnimacionInterfaz} = useAnimacionInterfaz();

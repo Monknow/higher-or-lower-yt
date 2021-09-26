@@ -13,8 +13,10 @@ export const CartasDeRedesSociales = ({location}) => {
 			}
 		}
 	`);
+
 	const urlActual = `${data.site.siteMetadata.siteUrl}${location.pathname}`;
 	const urlImagen = `${urlActual}${imagenBanner}`;
+	
 	return (
 		<Helmet>
 			{/*  <!-- Open Graph / Facebook --> */}

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Fragment} from "react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {getRandomColor} from "@functions/getRandomColor";
 import {elegirResolucionDeImagen} from "@functions/elegirResolucionDeImagen";
@@ -47,7 +47,7 @@ const VideoEnJuegoEstilizado = styled(animated.div)`
 		width: 100%;
 		height: 100%;
 
-		background-color: #${() => getRandomColor()};
+		background-color: #${({$colorFondo}) => $colorFondo};
 		background-image: url(${({imagen}) => imagen});
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -75,11 +75,16 @@ export const VideoEnJuego = ({
 	animacionVisitas,
 }) => {
 	const [mostrarVisitas, setMostrarVisitas] = useState(!esVideoParaComparar);
+	const [colorFondo, setColorFondo] = useState("000");
 
 	const thumbnails = datos.snippet.thumbnails;
 
+	useEffect(() => {
+		setColorFondo(getRandomColor());
+	}, []);
+
 	return (
-		<VideoEnJuegoEstilizado style={style} imagen={elegirResolucionDeImagen(thumbnails)}>
+		<VideoEnJuegoEstilizado style={style} $colorFondo={colorFondo} imagen={elegirResolucionDeImagen(thumbnails)}>
 			{!fueraDePantalla && (
 				<Fragment>
 					<HeaderVideo titulo={datos.snippet.title} />

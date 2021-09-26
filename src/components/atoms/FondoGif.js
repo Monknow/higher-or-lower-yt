@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useQuery} from "react-query";
 import {getRandomColor} from "@functions/getRandomColor";
@@ -12,14 +12,15 @@ const FondoGifEstilizado = styled.div`
 	grid-template-rows: repeat(5, 1fr);
 	grid-template-columns: auto;
 	grid-template-areas:
-		"header"
+		"top"
 		"header"
 		"centro"
 		"mid"
-		"footer";
+		".";
 
 	box-sizing: border-box;
-	padding: clamp(20px, 10vw, 40px) clamp(20px, 30vw, 80px);
+	padding: clamp(20px, 10vw, 40px);
+	padding-bottom: 40px;
 
 	height: 100vh;
 
@@ -33,7 +34,7 @@ const FondoGifEstilizado = styled.div`
 		width: 100%;
 		height: 100%;
 
-		background-color: #${getRandomColor()};
+		background-color: #${({colorFondo}) => colorFondo};
 		background-image: url("${({imagenUrl, isLoading}) => (isLoading ? "none" : imagenUrl)}");
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -44,8 +45,8 @@ const FondoGifEstilizado = styled.div`
 
 const AtribucionGif = styled(Titulo)`
 	position: absolute;
-	bottom: 20px;
-	left: 20px;
+	bottom: clamp(5px, 4vw, 20px);
+	left: clamp(5px, 4vw, 20px);
 	z-index: 99;
 
 	font-size: clamp(12px, 4vw, 16px);
@@ -59,32 +60,40 @@ const AtribucionGif = styled(Titulo)`
 `;
 
 export const FondoGif = ({children, puntos, queryGif, queryKey, gifFile}) => {
+	const [colorFondo, setColorFondo] = useState("000");
+	const [gifUrl, setGifUrl] = useState(null);
+
 	const tipoDeGif = queryGif ? queryGif : obtenerGifEnBaseAPuntos(tiposDeGif, puntos);
-	const queryOffset = puntos ? puntos : 0;
+
+	const decimalRandom = Math.random();
+	const queryOffset = Math.floor(decimalRandom * 10);
 
 	const {isLoading, data, refetch} = useQuery(
 		queryKey,
 		async () => {
 			return await fetch(
-				`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GATSBY_API_GIPHY_KEY}&q=${tipoDeGif}&limit=3&offset=${queryOffset}`
+				`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GATSBY_API_GIPHY_KEY}&q=${tipoDeGif}&limit=1&offset=${queryOffset}`
 			).then((res) => res.json());
 		},
-		{refetchOnWindowFocus: false, enabled: false, staleTime: 20000}
+		{enabled: false}
 	);
 
 	useEffect(() => {
-		if (!gifFile) refetch();
+		setColorFondo(getRandomColor());
+		if (!gifFile) {
+			refetch();
+		}
 	}, []);
-	const decimalRandom = Math.random();
 
-	const numeroRandom = !isLoading && data ? Math.floor(decimalRandom * data.data.length) : undefined;
-	//La respuesta de giphy tiene una propieda también llamada data :/. De ahi data.data
+	useEffect(() => {
+		const gifQueryUrl = !isLoading && data ? data.data[0].images.original.url : undefined;
+		//La respuesta de giphy tiene una propieda también llamada data :/. De ahi data.data
 
-	const gifQueryUrl = !isLoading && data ? data.data[numeroRandom].images.original.url : undefined;
-	const gifUrl = gifFile ? gifFile : gifQueryUrl;
+		setGifUrl(gifFile ? gifFile : gifQueryUrl);
+	}, [data, isLoading]);
 
 	return (
-		<FondoGifEstilizado isLoading={isLoading} imagenUrl={gifUrl}>
+		<FondoGifEstilizado colorFondo={colorFondo} isLoading={isLoading} imagenUrl={gifUrl}>
 			{children}
 			<AtribucionGif subtitulo>
 				<a href="https://giphy.com/"> Powered by GIPHY</a>
