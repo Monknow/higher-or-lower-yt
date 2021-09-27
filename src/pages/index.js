@@ -48,6 +48,7 @@ const docLinkStyle = {
   marginBottom: 24,
 }
 
+<<<<<<< HEAD
 const descriptionStyle = {
   color: "#232129",
   fontSize: 14,
@@ -55,6 +56,10 @@ const descriptionStyle = {
   marginBottom: 0,
   lineHeight: 1.25,
 }
+=======
+const DisclaimerEstilizado = styled.p`
+	grid-area: top;
+>>>>>>> 270b81d (Se ha mejorado la experiencia en teléfono)
 
 const docLink = {
   text: "Documentation",
@@ -181,4 +186,50 @@ const IndexPage = () => {
   )
 }
 
+<<<<<<< HEAD
 export default IndexPage
+=======
+	h1 {
+		line-height: clamp(30px, 20vw, 60px);
+	}
+`;
+
+const queryClient = new QueryClient();
+
+const IndexPage = ({location}) => {
+	const [codigoPais, setCodigoPais] = useState(location?.state?.codigoPais ?? "US");
+	// Recuperar codigoDePais de anterior partida
+
+	return (
+		<QueryClientProvider client={queryClient}>
+			<EstilosGlobales />
+
+			<FondoGif
+				puntos={location.state ? location.state.puntos : null}
+				queryKey={location.state ? "FondoDerrota" : null}
+				gifFile={location.state ? null : youtubeGif}>
+				<SeleccionarPais setCodigoPais={setCodigoPais} location={location} />
+				<Controles>
+					{location.state ? (
+						<>
+							<Titulo align="center">You scored</Titulo>
+							<Titulo align="center">{location.state.puntos}</Titulo>
+						</>
+					) : (
+						<Titulo align="center">Higher or Lower. Youtube version</Titulo>
+					)}
+					<Link to="/game" state={{codigoPais: codigoPais}}>
+						<Boton>{location.state ? "Play Again" : "Play"}</Boton>
+					</Link>
+				</Controles>
+				<DisclaimerEstilizado>
+					Disclaimer. This game was made for the only purpose of fun and love for programming, and it doesn't
+					intend to be a replacement for the <a href="www.higherlowergame.com">Original game</a>
+				</DisclaimerEstilizado>
+			</FondoGif>
+		</QueryClientProvider>
+	);
+};
+
+export default IndexPage;
+>>>>>>> 270b81d (Se ha mejorado la experiencia en teléfono)
