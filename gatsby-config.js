@@ -1,32 +1,9 @@
+require("dotenv").config({
+	path: `.env.${process.env.NODE_ENV}`,
+});
+const path = require("path");
+
 module.exports = {
-<<<<<<< HEAD
-  siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "Higher or Lower YT",
-  },
-  plugins: [
-    "gatsby-plugin-styled-components",
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sitemap",
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        icon: "src/images/icon.png",
-      },
-    },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "images",
-        path: "./src/images/",
-      },
-      __key: "images",
-    },
-  ],
-=======
 	siteMetadata: {
 		siteUrl: "https://peaceful-austin-24fb09.netlify.app/",
 		title: "Higher or Lower YT",
@@ -39,7 +16,7 @@ module.exports = {
 		{
 			resolve: "gatsby-plugin-manifest",
 			options: {
-				icon: "src/assets/images/higher-or-lower-yt-logo.png",
+				icon: path.resolve(__dirname, "src/assets/images/higher-or-lower-yt-logo.png"),
 				name: `Higher or Lower YouTube`,
 				short_name: `Higher Lower YT`,
 				start_url: `/`,
@@ -68,14 +45,6 @@ module.exports = {
 		"gatsby-plugin-sharp",
 		"gatsby-transformer-sharp",
 		{
-			resolve: "gatsby-source-filesystem",
-			options: {
-				name: "images",
-				path: "./src/assets/images/",
-			},
-			__key: "images",
-		},
-		{
 			resolve: "gatsby-plugin-react-svg",
 			options: {
 				rule: {
@@ -84,5 +53,4 @@ module.exports = {
 			},
 		},
 	],
->>>>>>> ec221d3 (Se ha añadido iconos y banners de compartir)
 };
