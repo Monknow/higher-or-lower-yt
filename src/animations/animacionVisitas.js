@@ -1,12 +1,11 @@
-import {useSpring, EasingFunction} from "react-spring";
-
-console.log(EasingFunction);
+import {useSpring} from "react-spring";
 
 export const useAnimacionVisitas = () => {
 	const [animacionVisitas, apiAnimacionVisitas] = useSpring(() => ({
 		from: {number: 0},
 		number: 0,
 		config: {
+			duration: 800,
 			easing: (x) => {
 				const {pow} = Math;
 
