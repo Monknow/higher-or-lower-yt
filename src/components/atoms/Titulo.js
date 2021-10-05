@@ -4,11 +4,11 @@ import {animated} from "react-spring";
 
 const align = ({align}) => align;
 const color = "#fff";
-const lineHeight = "30px";
+const lineHeight = "auto";
 
 const TituloEstilizado = styled(animated.h1)`
 	font-family: "Open Sans Bold", sans-serif;
-	font-size: 2em;
+	font-size: 2rem;
 
 	text-align: ${align};
 	line-height: ${lineHeight};
@@ -18,7 +18,7 @@ const TituloEstilizado = styled(animated.h1)`
 
 const SubtituloEstilizado = styled(animated.h2)`
 	font-family: "Open Sans Semibold", sans-serif;
-	font-size: 1.4em;
+	font-size: 1.4rem;
 
 	text-align: ${align};
 	line-height: ${lineHeight};

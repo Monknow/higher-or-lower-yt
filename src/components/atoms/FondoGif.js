@@ -9,19 +9,16 @@ import {Titulo} from "@components/atoms/Titulo";
 
 const FondoGifEstilizado = styled.div`
 	display: grid;
-	grid-template-rows: clamp(60px, 20vw, 100px) repeat(4, 1fr);
+	grid-template-rows: 100px repeat(3, 1fr);
 	grid-template-columns: auto;
 	grid-template-areas:
 		"top"
 		"header"
 		"centro"
-		"centro"
-		"low"
-		"footer";
-
+		"low";
 	box-sizing: border-box;
 	padding: clamp(20px, 10vw, 40px);
-	padding-bottom: 40px;
+	padding-bottom: clamp(20px, 50vw, 60px);
 
 	height: 100vh;
 

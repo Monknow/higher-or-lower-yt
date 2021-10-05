@@ -6,7 +6,7 @@ const VisitasEstilizadas = styled(Titulo)`
 	grid-area: centro;
 	align-self: center;
 
-	font-size: 4rem;
+	font-size: 3rem;
 `;
 
 export const Visitas = ({animacionVisitas, visitas}) => {

@@ -8,9 +8,9 @@ const HigherOrLowerBotonesEstilizado = styled(animated.div)`
 
 	display: flex;
 	align-items: center;
-	justify-content: space-evenly;
-	flex-flow: column wrap;
-	gap: clamp(10px, 5vw, 20px);
+	justify-content: center;
+	flex-flow: row wrap;
+	gap: clamp(5px, 3vw, 20px);
 `;
 
 export const HigherOrLowerBotones = ({manejarRespuesta, style}) => {

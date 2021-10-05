@@ -8,7 +8,7 @@ export const EstilosGlobales = createGlobalStyle`
     }
 
     html{
-        font-size: clamp(8px, 2vw, 14px);
+        font-size: clamp(8px, 2vw, 12px);
         font-family: "Open Sans Regular", sans-serif;
         color: #fff;
 

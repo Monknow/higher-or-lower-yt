@@ -20,14 +20,14 @@ const VideoEnJuegoEstilizado = styled(animated.div)`
 	grid-template-rows: repeat(5, 1fr);
 	grid-template-columns: auto;
 	grid-template-areas:
-		"header"
+		"."
 		"header"
 		"centro"
 		"mid"
 		"textoComparacion";
 
 	box-sizing: border-box;
-	padding: clamp(10px, 10vw, 50px);
+	padding: 50px clamp(3px, 5vw, 50px) 30px clamp(3px, 5vw, 50px);
 
 	width: 50vw;
 	height: 100vh;
@@ -60,7 +60,7 @@ const TextoComparacion = styled(Titulo)`
 	grid-area: ${({$abajo}) => ($abajo ? "textoComparacion" : "mid")};
 	align-self: "start";
 
-	font-size: 1.2em;
+	font-size: 1.2rem;
 	margin: 10px clamp(10px, 5vw, 30px);
 `;
 
@@ -82,7 +82,6 @@ export const VideoEnJuego = ({
 	useEffect(() => {
 		setColorFondo(getRandomColor());
 	}, []);
-
 	return (
 		<VideoEnJuegoEstilizado style={style} $colorFondo={colorFondo} imagen={elegirResolucionDeImagen(thumbnails)}>
 			{!esSiguienteVideo && (
@@ -93,7 +92,16 @@ export const VideoEnJuego = ({
 						<HigherOrLowerBotones style={animacionInterfaz} manejarRespuesta={manejarRespuesta} />
 					)}
 					<TextoComparacion align="center" style={animacionInterfaz} subtitulo $abajo={esVideoActual}>
-						{esVideoAnterior ? <span>views than {tituloVideoAnterior}</span> : <span>views</span>}
+						{!esVideoAnterior ? (
+							<span>
+								views than{" "}
+								{tituloVideoAnterior.length > 50
+									? `${tituloVideoAnterior.slice(0, 50)}...`
+									: tituloVideoAnterior}
+							</span>
+						) : (
+							<span>views</span>
+						)}
 					</TextoComparacion>
 				</Fragment>
 			)}

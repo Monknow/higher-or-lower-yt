@@ -8,7 +8,6 @@ const HeaderVideoEstilizado = styled(animated.div)`
 	align-items: center;
 	justify-content: flex-start;
 	flex-flow: column nowrap;
-	gap: clamp(5px, 5vw, 20px);
 
 	grid-area: header;
 	align-self: end;
@@ -17,7 +16,7 @@ const HeaderVideoEstilizado = styled(animated.div)`
 export const HeaderVideo = ({titulo, style}) => {
 	return (
 		<HeaderVideoEstilizado style={style}>
-			<Titulo align="center">{titulo}</Titulo>
+			<Titulo align="center">{titulo.length > 50 ? `${titulo.slice(0, 50)}...` : titulo}</Titulo>
 			<Titulo subtitulo align="center">
 				has
 			</Titulo>

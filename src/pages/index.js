@@ -29,20 +29,26 @@ const DisclaimerEstilizado = styled.p`
 		color: #fff;
 	}
 `;
-const Controles = styled.div`
+
+const HeaderEstilizado = styled.header`
 	grid-area: centro;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-flow: column nowrap;
-	gap: clamp(10px, 10vw, 40px);
+`;
 
-	font-size: clamp(18px, 10vw, 30px);
+const TituloGrande = styled(Titulo)`
+	font-size: 3rem;
+`;
 
-	h1 {
-		line-height: clamp(30px, 20vw, 60px);
-	}
+const BotonJugar = styled(Link)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	grid-area: low;
 `;
 
 const queryClient = new QueryClient();
@@ -62,24 +68,26 @@ const IndexPage = ({location}) => {
 				puntos={location.state ? location.state.puntos : null}
 				queryKey={location.state ? "FondoDerrota" : null}
 				gifFile={location.state ? null : youtubeGif}>
-				<SeleccionarPais setCodigoPais={setCodigoPais} location={location} />
-				<Controles>
-					{location.state ? (
-						<>
-							<Titulo align="center">You scored</Titulo>
-							<Titulo align="center">{location.state.puntos}</Titulo>
-						</>
-					) : (
-						<Titulo align="center">Higher or Lower. Youtube version</Titulo>
-					)}
-					<Link to="/game" state={{codigoPais: codigoPais}}>
-						<Boton>{location.state ? "Play Again" : "Play"}</Boton>
-					</Link>
-				</Controles>
 				<DisclaimerEstilizado>
 					Disclaimer. This game was made for the only purpose of fun and love for programming, and it doesn't
 					intend to be a replacement for the <a href="www.higherlowergame.com">Original game</a>
 				</DisclaimerEstilizado>
+				<SeleccionarPais setCodigoPais={setCodigoPais} location={location} />
+				<HeaderEstilizado>
+					{location.state ? (
+						<>
+							<TituloGrande align="center">You scored</TituloGrande>
+							<TituloGrande align="center">
+								{location.state.puntos} {location.state.puntos === 1 ? "point" : "points"}
+							</TituloGrande>
+						</>
+					) : (
+						<TituloGrande align="center">Higher or Lower. Youtube version</TituloGrande>
+					)}
+				</HeaderEstilizado>
+				<BotonJugar to="/game" state={{codigoPais: codigoPais}}>
+					<Boton>{location.state ? "Play Again" : "Play"}</Boton>
+				</BotonJugar>
 			</FondoGif>
 		</QueryClientProvider>
 	);

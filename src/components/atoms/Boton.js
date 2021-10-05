@@ -6,8 +6,8 @@ const BotonEstilizado = styled.button`
 	border-radius: 50px;
 	padding: 5px 10px 4px 10px;
 
-	width: clamp(140px, 50vw, 200px);
-	height: clamp(40px, 12vw, 50px);
+	width: clamp(70px, 30vw, 200px);
+	min-height: clamp(45px, 12vw, 50px);
 
 	font-family: "Open Sans Semibold", sans-serif;
 	font-size: clamp(14px, 3vw, 18px);
